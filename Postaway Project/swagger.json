@@ -1,0 +1,272 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "version": "1.0.0",
+        "description": "Postaway Backend Application",
+        "title": "Postaway API"
+    },
+    "servers": [
+        {
+            "url":"http://localhot:3000"
+        }
+    ],
+    "components": {
+        "securitySchemes":{
+        "JWT":{
+            "in": "header",
+            "name": "Authorization",
+            "type": "apiKey"
+            }
+        }
+    },
+    
+    "paths": {
+        "/api/posts/{id}":{
+            "delete": {
+                "tags":["Posts"],
+                "summury": "Delete a Post",
+                "description": "User will delete their post",
+                "security": [
+                    {
+                        "JWT": {}
+                    }
+                ],
+                "parameters": {
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/posts/{id}":{
+            "put": {
+                "tags":["Posts"],
+                "summury": "Update a Post",
+                "description": "User will update their post",
+                "security": [
+                    {
+                        "JWT": {}
+                    }
+                ],
+                "parameters": {
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "requestBody" : {
+                    "content":
+                    {
+                        "application/json":{
+                            "schema": {
+                            "type": "object",
+                            "properties": {
+                                "caption": {
+                                    "type": "string"
+                                },
+                                "imageUrl": {
+                                    "type": "file"
+                                }
+                            }
+                        }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/posts/":{
+            "post": {
+                "tags":["Posts"],
+                "summury": "Submit a Post",
+                "description": "User will submmit their post",
+                "security": [
+                    {
+                        "JWT": {}
+                    }
+                ],
+                "requestBody" : {
+                    "content":
+                    {
+                        "application/json":{
+                            "schema": {
+                            "type": "object",
+                            "properties": {
+                                "caption": {
+                                    "type": "string"
+                                },
+                                "imageUrl": {
+                                    "type": "file"
+                                }
+                            }
+                        }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/posts/{id}":{
+            "get": {
+                "tags":["Posts"],
+                "summury": "Get Post",
+                "description": "User will get a single Post",
+                "security": [
+                    {
+                        "JWT": {}
+                    }
+                ],
+                "parameters": {
+                    "path":{
+                    "name": "id",
+                    "schema":{
+                        "type": "integer"
+                    },
+                    "required": true,
+                    "type": "integer",
+                    "minimum": 1
+                }
+            },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/posts/":{
+            "get": {
+                "tags":["Posts"],
+                "summury": "Get Posts of user",
+                "description": "User will get list of posts of a their own",
+                "security": [
+                    {
+                        "JWT": {}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/posts/all":{
+            "get": {
+                "tags":["Posts"],
+                "summury": "Get Posts",
+                "description": "User will get list of posts",
+                "security": [
+                    {
+                        "JWT": {}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/user/login":{
+            "post": {
+                "tags":["Users"],
+                "summury": "Login",
+                "description": "User Login to get token",
+                "requestBody" : {
+                    "content":
+                    {
+                        "application/json":{
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Incorrect Credentials"
+                    }
+                }
+            }
+        },
+        "/api/user/signup":{
+            "post": {
+                "tags":["Users"],
+                "summury": "Signup",
+                "description": "User Signup to login and get token",
+                "requestBody" : {
+                    "content":
+                    {
+                        "application/json":{
+                            "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Added"
+                    }
+                }
+            }
+        }
+    }
+}
